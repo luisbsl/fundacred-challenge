@@ -4,12 +4,15 @@
 #    org.springframework: error
 #    br.com.fundacred.challenge: error
 
+
 spring:
   profiles:
     active: dev
   main:
     banner-mode: off
-      
+  application:
+    name: Fundacred Challenge 
+       
 server:
   servlet:
     context-path: /api

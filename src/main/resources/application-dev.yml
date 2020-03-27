@@ -1,2 +1,11 @@
 spring:
-  profiles: dev
+  application:
+    name: Fundacred Challenge - DEV
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
