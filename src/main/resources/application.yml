@@ -1,0 +1,15 @@
+#logging:
+#  level:
+#    root: info 
+#    org.springframework: error
+#    br.com.fundacred.challenge: error
+
+spring:
+  profiles:
+    active: dev
+  main:
+    banner-mode: off
+      
+server:
+  servlet:
+    context-path: /api
