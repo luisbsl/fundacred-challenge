@@ -11,7 +11,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.fundacred.challenge.auth.controller.dto.RestBodyRequest;
@@ -75,7 +74,7 @@ public class AuthService {
 				for (ConstraintViolation<RestBodyRequest> violation : violations) {
 					errors.add(violation.getMessage());
 				}
-				throw new BadRequestException(new RestBodyResponse(errors, HttpStatus.BAD_REQUEST));
+				throw new BadRequestException(new RestBodyResponse(errors));
 			}
 			return signinRestBodyRequest;
 		};

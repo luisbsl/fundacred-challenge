@@ -2,6 +2,7 @@ package br.com.fundacred.challenge.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,23 +24,23 @@ public class AuthController {
 	@Autowired
 	AuthService authService;
 
-	@PostMapping("/signup")
+	@PostMapping(value="/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RestBodyResponse> signup(@RequestBody final SignupRestBodyRequest signupRestBodyRequest) {
 		try {
 			return new ResponseEntity<>(authService.signup(signupRestBodyRequest), HttpStatus.CREATED);
 		} catch (RestRequestException e) {
 			var restBodyResponse = e.getRestBodyResponse();
-			return new ResponseEntity<>(restBodyResponse, restBodyResponse.getStatus());
+			return new ResponseEntity<>(restBodyResponse, e.getHttpStatus());
 		}
 	}
 	
-	@PostMapping("/signin")
+	@PostMapping(value="/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RestBodyResponse> signin(@RequestBody final SigninRestBodyRequest signinRestBodyRequest) {
 		try {
-			return new ResponseEntity<>(authService.signin(signinRestBodyRequest), HttpStatus.CREATED);
+			return new ResponseEntity<>(authService.signin(signinRestBodyRequest), HttpStatus.OK);
 		} catch (RestRequestException e) {
 			var restBodyResponse = e.getRestBodyResponse();
-			return new ResponseEntity<>(restBodyResponse, restBodyResponse.getStatus());
+			return new ResponseEntity<>(restBodyResponse, e.getHttpStatus());
 		}
 	}
 

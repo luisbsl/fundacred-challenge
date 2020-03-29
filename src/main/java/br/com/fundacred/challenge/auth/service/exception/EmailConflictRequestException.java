@@ -11,7 +11,7 @@ public class EmailConflictRequestException extends RestRequestException {
 	private static final long serialVersionUID = -7206149119450361788L;
 
 	public EmailConflictRequestException() {
-		this.restBodyResponse = new RestBodyResponse(Set.of("E-mail já existente"), HttpStatus.CONFLICT);
+		super(new RestBodyResponse(Set.of("Usuário e/ou senha inválidos")), HttpStatus.CONFLICT);
 	}
 
 }

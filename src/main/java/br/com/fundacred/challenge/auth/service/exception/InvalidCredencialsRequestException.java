@@ -11,7 +11,7 @@ public class InvalidCredencialsRequestException extends RestRequestException {
 	private static final long serialVersionUID = -7206149119450361788L;
 
 	public InvalidCredencialsRequestException() {
-		this.restBodyResponse = new RestBodyResponse(Set.of("Usuário e/ou senha inválidos"), HttpStatus.UNAUTHORIZED);
+		super(new RestBodyResponse(Set.of("Usuário e/ou senha inválidos")), HttpStatus.UNAUTHORIZED);
 	}
 
 }

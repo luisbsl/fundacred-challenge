@@ -18,6 +18,5 @@ import lombok.experimental.SuperBuilder;
 public class RestBodyResponse {
 
 	private Set<String> mensagens;
-	private HttpStatus status;
 
 }

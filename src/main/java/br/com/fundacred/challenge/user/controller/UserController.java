@@ -29,7 +29,7 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.CREATED);
 		} catch (RestRequestException e) {
 			var restBodyResponse = e.getRestBodyResponse();
-			return new ResponseEntity<>(restBodyResponse, restBodyResponse.getStatus());
+			return new ResponseEntity<>(restBodyResponse, e.getHttpStatus());
 		}
 	}
 
