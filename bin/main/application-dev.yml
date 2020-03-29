@@ -8,7 +8,4 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create-drop
-
-challenge:
-  secret: Fundacred Secret
+      ddl-auto: update

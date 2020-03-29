@@ -6,6 +6,11 @@ import org.springframework.http.HttpStatus;
 
 import br.com.fundacred.challenge.auth.controller.dto.RestBodyResponse;
 
+/**
+ * 
+ * @author luisbsl
+ *
+ */
 public class EmailConflictRequestException extends RestRequestException {
 
 	private static final long serialVersionUID = -7206149119450361788L;

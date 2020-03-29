@@ -1,3 +1,11 @@
 spring:
   application:
-    name: Fundacred Challenge - PROD
+    name: Fundacred Challenge
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: ${FUNDACRED_CHALLENGE_DATABASE_URL}
+    username: ${FUNDACRED_CHALLENGE_DATABASE_USERNAME}
+    password: ${FUNDACRED_CHALLENGE_DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update

@@ -4,6 +4,11 @@ import org.springframework.http.HttpStatus;
 
 import br.com.fundacred.challenge.auth.controller.dto.RestBodyResponse;
 
+/**
+ * 
+ * @author luisbsl
+ *
+ */
 public class BadRequestException extends RestRequestException {
 
 	private static final long serialVersionUID = 6790598650701912563L;

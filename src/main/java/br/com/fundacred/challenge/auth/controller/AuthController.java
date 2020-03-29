@@ -16,6 +16,11 @@ import br.com.fundacred.challenge.auth.controller.dto.SignupRestBodyRequest;
 import br.com.fundacred.challenge.auth.service.AuthService;
 import br.com.fundacred.challenge.auth.service.exception.RestRequestException;
 
+/**
+ * 
+ * @author luisbsl
+ *
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/auth")
@@ -29,8 +34,7 @@ public class AuthController {
 		try {
 			return new ResponseEntity<>(authService.signup(signupRestBodyRequest), HttpStatus.CREATED);
 		} catch (RestRequestException e) {
-			var restBodyResponse = e.getRestBodyResponse();
-			return new ResponseEntity<>(restBodyResponse, e.getHttpStatus());
+			return new ResponseEntity<>(e.getRestBodyResponse(), e.getHttpStatus());
 		}
 	}
 	
@@ -39,8 +43,7 @@ public class AuthController {
 		try {
 			return new ResponseEntity<>(authService.signin(signinRestBodyRequest), HttpStatus.OK);
 		} catch (RestRequestException e) {
-			var restBodyResponse = e.getRestBodyResponse();
-			return new ResponseEntity<>(restBodyResponse, e.getHttpStatus());
+			return new ResponseEntity<>(e.getRestBodyResponse(), e.getHttpStatus());
 		}
 	}
 

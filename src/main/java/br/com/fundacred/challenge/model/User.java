@@ -25,6 +25,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 
+ * @author luisbsl
+ *
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -60,6 +65,9 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Phone> phones = new HashSet<>();
 
-	private Date created = new Date();
+	@Column(updatable = false)
+	private Date created;
+	private Date modified;
+	private Date lastLogin;
 
 }

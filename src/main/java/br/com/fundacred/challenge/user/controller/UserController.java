@@ -14,6 +14,11 @@ import br.com.fundacred.challenge.auth.controller.dto.RestBodyResponse;
 import br.com.fundacred.challenge.auth.service.exception.RestRequestException;
 import br.com.fundacred.challenge.user.service.UserService;
 
+/**
+ * 
+ * @author luisbsl
+ *
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/users")
@@ -26,10 +31,9 @@ public class UserController {
 	public ResponseEntity<RestBodyResponse> signin(@PathVariable final String id,
 			@RequestHeader("token") String token) {
 		try {
-			return new ResponseEntity<>(null, HttpStatus.CREATED);
+			return new ResponseEntity<>(userService.profile(id, token), HttpStatus.OK);
 		} catch (RestRequestException e) {
-			var restBodyResponse = e.getRestBodyResponse();
-			return new ResponseEntity<>(restBodyResponse, e.getHttpStatus());
+			return new ResponseEntity<>(e.getRestBodyResponse(), e.getHttpStatus());
 		}
 	}
 

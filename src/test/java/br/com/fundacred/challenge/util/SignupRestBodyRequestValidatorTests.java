@@ -10,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import br.com.fundacred.challenge.auth.controller.dto.PhoneRestBodyRequest;
 import br.com.fundacred.challenge.auth.controller.dto.SignupRestBodyRequest;
 import br.com.fundacred.challenge.auth.service.exception.BadRequestException;
+import br.com.fundacred.challenge.helper.BCryptHelper;
+import br.com.fundacred.challenge.helper.EnviromentHelper;
+import br.com.fundacred.challenge.helper.JWTTokenHelper;
 import br.com.fundacred.challenge.model.User;
 
 @SpringBootTest

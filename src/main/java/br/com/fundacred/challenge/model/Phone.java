@@ -16,6 +16,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 
+ * @author luisbsl
+ *
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
