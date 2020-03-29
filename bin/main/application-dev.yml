@@ -3,9 +3,9 @@ spring:
     name: Fundacred Challenge - DEV
   datasource:
     driver-class-name: org.hsqldb.jdbc.JDBCDriver
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
+    url: jdbc:hsqldb:file:./database/data/challengedb
+    username: sa
     password:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
