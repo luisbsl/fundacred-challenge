@@ -2,6 +2,7 @@ package br.com.fundacred.challenge.auth.controller;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,8 @@ import br.com.fundacred.challenge.auth.controller.dto.PhoneRestBodyRequest;
 import br.com.fundacred.challenge.auth.controller.dto.SigninRestBodyRequest;
 import br.com.fundacred.challenge.auth.controller.dto.SignupRestBodyRequest;
 import br.com.fundacred.challenge.auth.controller.dto.UserRestBodyResponse;
+import br.com.fundacred.challenge.model.User;
+import br.com.fundacred.challenge.user.service.UserService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -36,6 +39,9 @@ public class AuthControllerTests {
 
 	@Autowired
 	RestTemplate restTemplate;
+	
+	@Autowired
+	UserService userService;
 
 	@Test
 	@Order(1)
@@ -46,6 +52,7 @@ public class AuthControllerTests {
 
 		assertNotNull(userRestBodyResponse);
 		assertNotNull(userRestBodyResponse.getId());
+		cleanup();
 	}
 
 	@Test
@@ -62,6 +69,7 @@ public class AuthControllerTests {
 		assertNotNull(userRestBodyResponse);
 		assertNotNull(userRestBodyResponse.getId());
 		assertNotNull(userRestBodyResponse.getToken());
+		cleanup();
 	}
 
 	private ResponseEntity<UserRestBodyResponse> signup() {
@@ -69,6 +77,13 @@ public class AuthControllerTests {
 				Set.of(new PhoneRestBodyRequest("51", "911112222")));
 		return restTemplate.postForEntity("http://localhost:" + port + "/api/v1/auth/signup", signup,
 				UserRestBodyResponse.class);
+	}
+	
+	private void cleanup() {
+		Optional<User> userOptional = userService.findByEmail().apply("janejoe@mail.com");
+		userOptional.ifPresent(user -> {
+			userService.delete().accept(user);
+		});
 	}
 
 }

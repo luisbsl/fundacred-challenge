@@ -1,8 +1,16 @@
 ## Fundacred Challenge - Spring Boot API Restul
 
- Cadastro, login e acesso ao perfil de usuários utilizando autenticação JWT
+Cadastro, login e acesso ao perfil de usuários utilizando autenticação JWT
+ 
+### Heroku
 
-### Requesitos
+https://fundacred-challenge.herokuapp.com
+
+### Swagger
+
+https://fundacred-challenge.herokuapp.com/api/swagger-ui.html
+
+### Stack
 
 * Java 11
 * Spring Boot 2.2.6.RELEASE
@@ -20,11 +28,3 @@
 * FUNDACRED_CHALLENGE_DATABASE_URL
 * FUNDACRED_CHALLENGE_DATABASE_USERNAME
 * FUNDACRED_CHALLENGE_JWT_ID
-
-### Swagger
-
-http://localhost:8080/api/swagger-ui.html
-
-### Heroku
-
-https://fundacred-challenge.herokuapp.com

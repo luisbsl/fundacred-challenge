@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.DisplayName;
@@ -26,6 +27,8 @@ import br.com.fundacred.challenge.auth.service.exception.BadRequestException;
 import br.com.fundacred.challenge.auth.service.exception.EmailConflictRequestException;
 import br.com.fundacred.challenge.auth.service.exception.EmailNotFoundRequestException;
 import br.com.fundacred.challenge.auth.service.exception.InvalidCredencialsRequestException;
+import br.com.fundacred.challenge.model.User;
+import br.com.fundacred.challenge.user.service.UserService;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -37,6 +40,9 @@ public class AuthServiceTests {
 	@Autowired
 	AuthService authService;
 
+	@Autowired
+	UserService userService;
+
 	@Test
 	@Order(1)
 	void signup_givenSignupRestBodyRequest_shouldReturnUserRestBodyResponse() {
@@ -44,6 +50,8 @@ public class AuthServiceTests {
 
 		assertNotNull(userRestBodyResponse);
 		assertNotNull(userRestBodyResponse.getId());
+
+		cleanup();
 	}
 
 	@Test
@@ -63,6 +71,7 @@ public class AuthServiceTests {
 	@Test
 	@Order(3)
 	void signup_givenSignupRestBodyRequest_shouldThrowEmailConflictRequestException() {
+		signup();
 		final SignupRestBodyRequest duplicatedSignupRestBodyRequest = new SignupRestBodyRequest("Jane Joe",
 				"janejoe@mail.com", "pass", Set.of(new PhoneRestBodyRequest("51", "911112222")));
 
@@ -72,6 +81,7 @@ public class AuthServiceTests {
 		assertNotNull(exception.getRestBodyResponse().getMensagens().stream()
 				.filter(m -> m.equals("Usuário e/ou senha inválidos")).findFirst().get());
 		assertEquals(HttpStatus.CONFLICT, exception.getHttpStatus());
+		cleanup();
 	}
 
 	@Test
@@ -85,6 +95,7 @@ public class AuthServiceTests {
 		assertNotNull(userRestBodyResponse.getId());
 		assertNotNull(userRestBodyResponse.getToken());
 		assertNotNull(userRestBodyResponse.getLastLogin());
+		cleanup();
 	}
 
 	@Test
@@ -126,12 +137,21 @@ public class AuthServiceTests {
 		assertNotNull(exception.getRestBodyResponse().getMensagens().stream().filter(m -> m.contains("senha"))
 				.findFirst().get());
 		assertEquals(HttpStatus.UNAUTHORIZED, exception.getHttpStatus());
+		cleanup();
 	}
 
 	private UserRestBodyResponse signup() {
+		cleanup();
 		final SignupRestBodyRequest signup = new SignupRestBodyRequest("Jane Joe", "janejoe@mail.com", "pass",
 				Set.of(new PhoneRestBodyRequest("51", "911112222")));
 		return authService.signup(signup);
+	}
+
+	private void cleanup() {
+		Optional<User> userOptional = userService.findByEmail().apply("janejoe@mail.com");
+		userOptional.ifPresent(user -> {
+			userService.delete().accept(user);
+		});
 	}
 
 }
