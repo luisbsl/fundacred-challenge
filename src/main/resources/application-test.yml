@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Fundacred Challenge - DEV
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:challengedb
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

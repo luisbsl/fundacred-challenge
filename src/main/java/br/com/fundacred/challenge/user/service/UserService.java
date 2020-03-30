@@ -5,6 +5,7 @@ import static br.com.fundacred.challenge.user.service.function.UserServiceFuncti
 import static br.com.fundacred.challenge.user.service.function.UserServiceFunctions.validateToken;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,12 @@ public class UserService {
 	public Function<User, User> save() {
 		return userRepository::save;
 	}
+	
+	public Consumer<User> delete() {
+		return userRepository::delete;
+	}
 
-	public Optional<User> findByEmail(final String email) {
-		return userRepository.findByEmail(email);
+	public Function<String, Optional<User>> findByEmail() {
+		return userRepository::findByEmail;
 	}
 }
