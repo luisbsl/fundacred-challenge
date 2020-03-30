@@ -36,7 +36,7 @@ public interface AuthServiceFunctions {
 	public static Function<RestBodyRequest, RestBodyRequest> validateEmailConflict(final UserService userService) {
 		return restBodyRequest -> {
 			var userRestBodyRequest = (SignupRestBodyRequest) restBodyRequest;
-			userService.findByEmail(userRestBodyRequest.getEmail()).ifPresent(user -> {
+			userService.findByEmail().apply(userRestBodyRequest.getEmail()).ifPresent(user -> {
 				throw new EmailConflictRequestException();
 			});
 			return restBodyRequest;
@@ -62,7 +62,7 @@ public interface AuthServiceFunctions {
 
 	public static Function<RestBodyRequest, User> getUserFromDatabase(final UserService userService, final String email) {
 		return signinRestBodyRequest -> {
-			Optional<User> userOptional = userService.findByEmail(email);
+			Optional<User> userOptional = userService.findByEmail().apply(email);
 			return userOptional.orElseThrow(EmailNotFoundRequestException::new);
 		};
 	}
